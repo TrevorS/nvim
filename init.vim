@@ -37,15 +37,25 @@ let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 
 " plugs
 call plug#begin($HOME . '/.config/nvim/plugged')
+
+" javascript
 Plug 'pangloss/vim-javascript'
 Plug 'othree/javascript-libraries-syntax.vim'
 Plug 'jelera/vim-javascript-syntax'
+Plug 'mxw/vim-jsx'
 Plug 'kchmck/vim-coffee-script'
+Plug 'leafgarland/typescript-vim'
+Plug 'burnettk/vim-angular'
+
+" templating
 Plug 'plasticboy/vim-markdown'
 Plug 'mustache/vim-mustache-handlebars'
+
+" languages
 Plug 'vim-ruby/vim-ruby'
 Plug 'elixir-lang/vim-elixir'
 
+" tpope
 Plug 'tpope/vim-rails'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
@@ -55,13 +65,16 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-vinegar'
 
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
-
+" junegunn
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-easy-align'
 
+" snippets
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+
+" utilities
 Plug 'mhinz/vim-signify'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'scrooloose/syntastic'
@@ -69,6 +82,7 @@ Plug 'Raimondi/delimitMate'
 Plug 'itchyny/lightline.vim'
 Plug 'janko-m/vim-test'
 
+" themes
 Plug 'tomasr/molokai'
 Plug 'nanotech/jellybeans.vim'
 call plug#end()
@@ -139,16 +153,12 @@ nnoremap <silent> <leader>etv :vsplit<CR><C-w><C-w>:e $HOME/.tmux.conf<CR>
 
 " fzf
 nnoremap <silent> <leader>p :call fzf#run({ 'source': 'ag -g ""', 'sink': 'e', 'window': 'enew' })<CR>
-" nnoremap <silent> <leader>p :Files<CR>
 
 " easy align
 vmap <silent> <CR> <Plug>(EasyAlign)
 
 " easy split navigation
-if has('nvim')
-  nnoremap <BS> <C-w>h
-endif
-
+nnoremap <BS> <C-w>h
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
@@ -194,8 +204,21 @@ let g:UltiSnipsExpandTrigger="<tab>"
 
 " syntastic
 let g:syntastic_ruby_checkers = ['mri']
-let g:syntastic_javascript_checkers = ['jshint']
 let g:syntastic_mode_map = { "mode": "active", "passive_filetypes": ["java", "jruby"] }
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+let g:syntastic_html_tidy_blocklevel_tags = [
+  \ 'ion-view',
+  \ 'ion-content',
+  \ 'ion-nav-bar',
+  \ 'ion-nav-back-button',
+  \ 'ion-nav-view',
+  \ 'ion-nav-buttons',
+  \ 'ion-list',
+  \ 'ion-item',
+  \ 'ion-refresher'
+  \ ]
 
 " vim-ruby
 let ruby_operators = 1
@@ -210,7 +233,8 @@ let g:lightline = {
       \ 'colorscheme': 'jellybeans',
       \ 'mode_map': { 'c': 'NORMAL' },
       \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ] ]
+      \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ] ],
+      \   'right': [ [ 'syntastic', 'lineinfo' ], ['percent'], [ 'fileformat', 'fileencoding', 'filetype' ] ]
       \ },
       \ 'component_function': {
       \   'modified': 'LightLineModified',
