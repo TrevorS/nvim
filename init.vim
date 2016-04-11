@@ -51,9 +51,13 @@ Plug 'burnettk/vim-angular'
 Plug 'plasticboy/vim-markdown'
 Plug 'mustache/vim-mustache-handlebars'
 
-" languages
+" ruby
 Plug 'vim-ruby/vim-ruby'
+
+" elixir
 Plug 'elixir-lang/vim-elixir'
+Plug 'slashmili/alchemist.vim'
+Plug 'powerman/vim-plugin-AnsiEsc'
 
 " tpope
 Plug 'tpope/vim-rails'
@@ -69,6 +73,9 @@ Plug 'tpope/vim-vinegar'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-easy-align'
+
+" shougo
+Plug 'Shougo/deoplete.nvim'
 
 " snippets
 Plug 'SirVer/ultisnips'
@@ -290,3 +297,6 @@ endfunction
 function! LightLineMode()
   return winwidth(0) > 60 ? lightline#mode() : ''
 endfunction
+
+" deoplete
+let g:deoplete#enable_at_startup = 1
