@@ -88,6 +88,7 @@ Plug 'scrooloose/syntastic'
 Plug 'Raimondi/delimitMate'
 Plug 'itchyny/lightline.vim'
 Plug 'janko-m/vim-test'
+Plug 'ervandew/supertab'
 
 " themes
 Plug 'tomasr/molokai'
@@ -300,3 +301,6 @@ endfunction
 
 " deoplete
 let g:deoplete#enable_at_startup = 1
+
+" deoplete + supertab
+let g:SuperTabDefaultCompletionType = '<C-n>'
