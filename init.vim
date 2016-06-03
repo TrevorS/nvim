@@ -39,28 +39,28 @@ let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 call plug#begin($HOME . '/.config/nvim/plugged')
 
 " javascript
-Plug 'pangloss/vim-javascript'
-Plug 'othree/javascript-libraries-syntax.vim'
-Plug 'jelera/vim-javascript-syntax'
-Plug 'mxw/vim-jsx'
-Plug 'kchmck/vim-coffee-script'
-Plug 'leafgarland/typescript-vim'
-Plug 'burnettk/vim-angular'
+Plug 'pangloss/vim-javascript',                { 'for': 'javascript' }
+Plug 'othree/javascript-libraries-syntax.vim', { 'for': 'javascript' }
+Plug 'jelera/vim-javascript-syntax',           { 'for': 'javascript' }
+Plug 'mxw/vim-jsx',                            { 'for': 'javascript' }
+Plug 'kchmck/vim-coffee-script',               { 'for': 'javascript' }
+Plug 'leafgarland/typescript-vim',             { 'for': 'javascript' }
+Plug 'burnettk/vim-angular',                   { 'for': ['javascript', 'html'] }
 
 " templating
-Plug 'plasticboy/vim-markdown'
-Plug 'mustache/vim-mustache-handlebars'
+Plug 'plasticboy/vim-markdown',          { 'for': 'markdown' }
+Plug 'mustache/vim-mustache-handlebars', { 'for': ['handlebars', 'mustache'] }
 
 " ruby
-Plug 'vim-ruby/vim-ruby'
+Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
 
 " elixir
-Plug 'elixir-lang/vim-elixir'
-Plug 'slashmili/alchemist.vim'
-Plug 'powerman/vim-plugin-AnsiEsc'
+Plug 'elixir-lang/vim-elixir',      { 'for': 'elixir' }
+Plug 'slashmili/alchemist.vim',     { 'for': 'elixir' }
+Plug 'powerman/vim-plugin-AnsiEsc', { 'for': 'elixir' }
 
 " tpope
-Plug 'tpope/vim-rails'
+Plug 'tpope/vim-rails', { 'for': 'rails' }
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-endwise'
@@ -74,10 +74,7 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-easy-align'
 
-" shougo
-Plug 'Shougo/deoplete.nvim'
-
-" snippets
+" auto complete and snippets
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 
@@ -88,10 +85,9 @@ Plug 'scrooloose/syntastic'
 Plug 'Raimondi/delimitMate'
 Plug 'itchyny/lightline.vim'
 Plug 'janko-m/vim-test'
-Plug 'ervandew/supertab'
+Plug 'rking/ag.vim'
 
 " themes
-Plug 'tomasr/molokai'
 Plug 'nanotech/jellybeans.vim'
 call plug#end()
 
@@ -115,14 +111,15 @@ augroup file_specific_settings
   autocmd FileType ruby let g:rubycomplete_classes_in_global = 1
 augroup END
 
+" disable automatic commenting
+autocmd FileType * setlocal formatoptions-=cro
+set formatoptions-=cro
+
 " keymaps
-let mapleader = ','
+let mapleader = "\<Space>"
 
 " jj to escape insert mode
 inoremap <silent> jj <ESC>
-
-" remap , to repeat like find
-nnoremap <silent> \ ,
 
 " readline-like keybindings in command mode
 cnoremap <C-a> <Home>
@@ -144,6 +141,7 @@ nnoremap <silent> <leader>* :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 nnoremap <silent> <leader>l :redraw!<CR>:nohl<CR><ESC>
 nnoremap <silent> <leader>v :vsplit<CR><C-w><C-w>
 nnoremap <silent> <leader>h :split<CR><C-w><C-w>
+nnoremap <silent> <leader>w :write<CR>
 nnoremap <silent> <leader>q :quit<CR>
 
 " quickly edit/reload the vimrc file or plugs file
@@ -298,9 +296,3 @@ endfunction
 function! LightLineMode()
   return winwidth(0) > 60 ? lightline#mode() : ''
 endfunction
-
-" deoplete
-let g:deoplete#enable_at_startup = 1
-
-" deoplete + supertab
-let g:SuperTabDefaultCompletionType = '<C-n>'
